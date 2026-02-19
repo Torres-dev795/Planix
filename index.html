@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <h2 id="sidebar-title">Planix</h2>
+            <nav>
+                <ul class="sidebar-list">
+                    <li class="sidebar-item">
+                        <button class="btn-item">Boards</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">My Tasks</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">Leads</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">Documents</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">Clients</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">More</button>
+                    </li>
+                </ul>
+            </nav>
+            <hr id ="sidebar-separator">
+            <h3 id="sidebar-favorites">Favorites</h3>
+            <nav>
+                <ul class="sidebar-list">
+                    <li class="sidebar-item">
+                        <button class="btn-item">Space</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">Team Space</button>
+                    </li>
+                    <li class="sidebar-item">
+                        <button class="btn-item">View Space</button>
+                    </li>
+                </ul>
+            </nav>
+            <button class="btn-item" id="btn-guideline">Guideline</button>
+        </aside>
+        <main class="content">
+            <div class="kanban-board">
+                <div id="top-tools">
+                    <h2 id="board-title">Projects</h2>
+                    <input type="text" id="search-input" placeholder="Search...">
+                    <div id="btn-group">
+                        <button id="btn-create">+ Create</button>
+                        <button class="btn-info">Notification</button>
+                        <button class="btn-info">?</button>
+                    </div>
+                    <div class="avatar">JD</div>
+                    
+                </div>
+                <div class="tabs">
+                    <button class="tab active">Board</button>
+                    <button class="tab">List</button>
+                    <button class="tab">Files</button>
+                    <button class="tab">Dashboard</button>
+                </div>
+
+                <div id="cards-container">
+                    <div class="column" id="New">
+                        <h3>New</h3>
+                        <div class="tasks-container">
+                            <div class="task-card">
+                                <span class="task-tag">Urgent</span>
+                                <p class="task-title">Rediseñar el diseño de la aplicación de una forma correcta para muchos dispositivos</p>
+                                <p class="task-progress">Progress</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%"></div>
+                                </div>
+                                <div class="task-footer">
+                                    <span class="task-date">📅 12 Feb</span>
+                                    <div class="avatar">JD</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column" id="InProgress">
+                        <h3>In Progress</h3>
+                        <div class="tasks-container"></div>
+                    </div>
+
+                    <div class="column" id="Pending">
+                        <h3>Pending</h3>
+                        <div class="tasks-container"></div>
+                    </div>
+
+                    <div class="column" id="Completed">
+                        <h3>Completed</h3>
+                        <div class="tasks-container"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="modal-close">✕</button>
+            <h2 id="modal-title"></h2>
+            <p id="modal-desc"></p>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
