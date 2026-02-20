@@ -72,21 +72,7 @@
                 <div id="cards-container">
                     <div class="column" id="New">
                         <h3>New</h3>
-                        <div class="tasks-container">
-                            <div class="task-card">
-                                <span class="task-tag">Urgent</span>
-                                <p class="task-title">Rediseñar el diseño de la aplicación de una forma correcta para muchos dispositivos</p>
-                                <p class="task-progress">Progress</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 60%"></div>
-                                </div>
-                                <div class="task-footer">
-                                    <span class="task-date">📅 12 Feb</span>
-                                    <div class="avatar">JD</div>
-                                </div>
-
-                            </div>
-                        </div>
+                        <div class="tasks-container"></div>
                     </div>
 
                     <div class="column" id="InProgress">
@@ -113,10 +99,34 @@
             <button id="modal-close">✕</button>
             <h2 id="modal-title"></h2>
             <p id="modal-desc"></p>
+            <h4 id="modal-state-title">State:</h4>
+            <span id="modal-state" class="modal-tag"></span>
+            <h4 id="modal-priority-title">Priority:</h4>
+            <span id="modal-priority" class="modal-tag"></span>
         </div>
     </div>
-
-
+    <div id="modal-create" class="modal hidden">
+        <div class="modal-content">
+            <button id="modal-create-close">✕</button>
+            <h2>Nueva Tarea</h2>
+            <form id="form-create">
+            <input type="text" id="input-titulo" placeholder="Título" required>
+            <textarea id="input-desc" placeholder="Descripción"></textarea>
+            <select id="select-estado">
+               <option value="New">New</option>
+               <option value="InProgress">In Progress</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <select id="select-prioridad">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <button type="submit">Crear tarea</button>
+            </form>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
