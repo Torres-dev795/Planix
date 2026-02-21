@@ -99,10 +99,19 @@
             <button id="modal-close">✕</button>
             <h2 id="modal-title"></h2>
             <p id="modal-desc"></p>
-            <h4 id="modal-state-title">State:</h4>
-            <span id="modal-state" class="modal-tag"></span>
-            <h4 id="modal-priority-title">Priority:</h4>
-            <span id="modal-priority" class="modal-tag"></span>
+            <div id="modal-tags">
+                <div class="modal-tag-group">
+                    <h4 id="modal-state-title">State:</h4>
+                    <span id="modal-state" class="modal-tag"></span>
+                </div>
+                <div class="modal-tag-group">
+                    <h4 id="modal-priority-title">Priority:</h4>
+                    <span id="modal-priority" class="modal-tag"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-delete" class="btn-delete">Delete</button>
+            </div>
         </div>
     </div>
     <div id="modal-create" class="modal hidden">
@@ -123,7 +132,7 @@
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
             </select>
-            <button type="submit">Crear tarea</button>
+            <button type="submit">Submmit</button>
             </form>
         </div>
     </div>
