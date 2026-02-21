@@ -18,6 +18,8 @@ const btnCreate = document.getElementById('btn-create');
 const tabs = document.querySelectorAll('.tab');
 const taskCard = document.querySelector('.task-card');
 
+const searchInput = document.getElementById('search-input');
+
 const tagColors = {
     'High':   { background: 'rgba(247, 189, 189, 0.633)', color: '#f33f3f' },
     'Medium':  { background: 'rgba(240, 165, 0, 0.15)',  color: '#f0a500' },
@@ -73,6 +75,7 @@ function createTask(task) {
             <div class="avatar">${task.assigned}</div>
         </div>`
     ;
+
 }
 
 function openModal(task) { 
@@ -108,9 +111,36 @@ function closeCreateModal() {
 function deleteTask(id) {
     state.task = state.task.filter(task => task.id !== id);
 
+    saveState();
     renderTasks();
     closeModal();
 }
+
+function saveState() {
+    localStorage.setItem('taskState', JSON.stringify(state));
+}
+
+function loadState() {
+    const savedState = localStorage.getItem('taskState');
+    if (savedState) {
+        state = JSON.parse(savedState);
+    }
+}
+
+function filterTasks(query) {
+    const lowerQuery = query.toLowerCase();
+    document.querySelectorAll('.task-card').forEach(card => {
+        const title = card.querySelector('.task-title').textContent.toLowerCase();
+        if (title.includes(lowerQuery)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+searchInput.addEventListener('input', (e) => filterTasks(e.target.value));
+
 
 btnCreate.addEventListener('click', () => openCreateModal());
 modalClose.addEventListener('click',closeModal);
@@ -128,10 +158,12 @@ formCreate.addEventListener('submit', (e) => {
         assigned: 'JD'
     };
     state.task.push(newTask);
+    saveState();
     renderTasks();
     closeCreateModal();
 });
 
+loadState();
 renderTasks();
 
 
