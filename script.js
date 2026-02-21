@@ -102,18 +102,11 @@ function closeCreateModal() {
     modalCreate.classList.add('hidden');
 }
 
-function filterTasks(state) {
-    document.querySelectorAll('.tasks-container').forEach(col => col.innerHTML = '');
-    const filteredTasks = state.task.filter(task => task.state === state);
-    filteredTasks.forEach(task => {
-        const columna = document.querySelector(`#${task.state} .tasks-container`);
-        const taskCard = document.createElement('div');
-        taskCard.className = 'task-card';
-        taskCard.innerHTML = createTask(task);
-        taskCard.addEventListener('click', () => openModal(task));
-        columna.appendChild(taskCard);
-    });
+function deleteTask(id) {
+    state.task = state.task.filter(task => task.id !== id);
+    renderTasks();
 }
+
 btnCreate.addEventListener('click', () => openCreateModal());
 modalClose.addEventListener('click',closeModal);
 modalCreateClose.addEventListener('click', closeCreateModal);
