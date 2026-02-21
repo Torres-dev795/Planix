@@ -5,6 +5,7 @@ const modalDesc = document.getElementById('modal-desc');
 const modalState = document.getElementById('modal-state');
 const modalPriority = document.getElementById('modal-priority');
 const modalClose = document.getElementById('modal-close');
+const modalDelete = document.getElementById('modal-delete');
 
 const modalCreate = document.getElementById('modal-create');
 const modalCreateClose = document.getElementById('modal-create-close');
@@ -87,6 +88,8 @@ function openModal(task) {
     modalPriority.style.background = color.background;
     modalPriority.style.color = color.color;
     modal.classList.remove('hidden');
+
+    modalDelete.onclick = () => deleteTask(task.id);
 }
 
 function closeModal() {
@@ -104,13 +107,14 @@ function closeCreateModal() {
 
 function deleteTask(id) {
     state.task = state.task.filter(task => task.id !== id);
+
     renderTasks();
+    closeModal();
 }
 
 btnCreate.addEventListener('click', () => openCreateModal());
 modalClose.addEventListener('click',closeModal);
 modalCreateClose.addEventListener('click', closeCreateModal);
-
 formCreate.addEventListener('submit', (e) => {
     e.preventDefault();
     const newTask = {
