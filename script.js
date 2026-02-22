@@ -51,12 +51,29 @@ let state = {
 function renderTasks() {
     document.querySelectorAll('.tasks-container').forEach(col => col.innerHTML = '');
 
+    document.querySelectorAll('.column').forEach(columna => {
+        columna.addEventListener('dragover', (e) => e.preventDefault());
+            columna.addEventListener('drop', (e) => {
+                const id = parseInt(e.dataTransfer.getData('id'));
+                const nuevoEstado = columna.id;
+                const task = state.task.find(t => t.id === id);
+                if (task) {
+                    task.state = nuevoEstado;
+                    renderTasks();
+                }
+            });
+    });
+
     state.task.forEach(task => {
     const columna = document.querySelector(`#${task.state} .tasks-container`);
     const taskCard = document.createElement('div');
     taskCard.className = 'task-card';
+    taskCard.draggable = true;
     taskCard.innerHTML = createTask(task);
     taskCard.addEventListener('click', () => openModal(task));
+    taskCard.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('id', task.id);
+    });
     columna.appendChild(taskCard);
   });
 }
@@ -138,6 +155,7 @@ function filterTasks(query) {
         }
     });
 }
+
 
 searchInput.addEventListener('input', (e) => filterTasks(e.target.value));
 
