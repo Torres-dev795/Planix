@@ -6,6 +6,7 @@ const modalState = document.getElementById('modal-state');
 const modalPriority = document.getElementById('modal-priority');
 const modalClose = document.getElementById('modal-close');
 const modalDelete = document.getElementById('modal-delete');
+const modalEdit = document.getElementById('modal-edit');
 
 const modalCreate = document.getElementById('modal-create');
 const modalCreateClose = document.getElementById('modal-create-close');
@@ -53,14 +54,15 @@ function renderTasks() {
 
     document.querySelectorAll('.column').forEach(columna => {
         columna.addEventListener('dragover', (e) => e.preventDefault());
-            columna.addEventListener('drop', (e) => {
-                const id = parseInt(e.dataTransfer.getData('id'));
-                const nuevoEstado = columna.id;
-                const task = state.task.find(t => t.id === id);
-                if (task) {
-                    task.state = nuevoEstado;
-                    renderTasks();
-                }
+        columna.addEventListener('drop', (e) => {
+            const id = parseInt(e.dataTransfer.getData('id'));
+            const nuevoEstado = columna.id;
+            const task = state.task.find(t => t.id === id);
+            if (task) {
+                task.state = nuevoEstado;
+                saveState();
+                renderTasks();
+            }
             });
     });
 
@@ -110,6 +112,10 @@ function openModal(task) {
     modal.classList.remove('hidden');
 
     modalDelete.onclick = () => deleteTask(task.id);
+    modalEdit.onclick = () => {
+        closeModal();
+        openModalEdit(task);
+    };
 }
 
 function closeModal() {
@@ -123,6 +129,9 @@ function openCreateModal() {
 
 function closeCreateModal() {
     modalCreate.classList.add('hidden');
+    formCreate.onsubmit = submitCreateTask;
+    document.querySelector('#modal-create h2').textContent = 'New Task';
+    document.querySelector('#form-create button[type="submit"]').textContent = 'Create Task';
 }
 
 function deleteTask(id) {
@@ -156,14 +165,33 @@ function filterTasks(query) {
     });
 }
 
+function openModalEdit(task) {
+    document.querySelector('#modal-create h2').textContent = 'Edit Task';
+    document.querySelector('#form-create button[type="submit"]').textContent = 'Save changes';
 
-searchInput.addEventListener('input', (e) => filterTasks(e.target.value));
+    inputTitulo.value = task.title;
+    inputDesc.value = task.description;
+    selectEstado.value = task.state;
+    document.getElementById('select-prioridad').value = task.priority;
 
+    modalCreate.classList.remove('hidden');
 
-btnCreate.addEventListener('click', () => openCreateModal());
-modalClose.addEventListener('click',closeModal);
-modalCreateClose.addEventListener('click', closeCreateModal);
-formCreate.addEventListener('submit', (e) => {
+    formCreate.onsubmit = (e) => {
+        e.preventDefault();
+        task.title = inputTitulo.value;
+        task.description = inputDesc.value;
+        task.state = selectEstado.value;
+        task.priority = document.getElementById('select-prioridad').value;
+        saveState();
+        renderTasks();
+        closeCreateModal();
+        document.querySelector('#modal-create h2').textContent = 'New Task';
+        document.querySelector('#form-create button[type="submit"]').textContent = 'Create Task';
+        formCreate.onsubmit = submitCreateTask;
+    }
+}
+
+function submitCreateTask(e) {
     e.preventDefault();
     const newTask = {
         id: state.task.length + 1,
@@ -179,9 +207,14 @@ formCreate.addEventListener('submit', (e) => {
     saveState();
     renderTasks();
     closeCreateModal();
-});
+}
+
+searchInput.addEventListener('input', (e) => filterTasks(e.target.value));
+btnCreate.addEventListener('click', () => openCreateModal());
+modalClose.addEventListener('click',closeModal);
+modalCreateClose.addEventListener('click', closeCreateModal);
+
+formCreate.onsubmit = submitCreateTask;
 
 loadState();
 renderTasks();
-
-
