@@ -432,3 +432,27 @@
   border-color: #d32f2f;
   color: #fff;
 }
+
+#modal-edit {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: transparent;
+  color: #007bff;
+  border: 1.5px solid #007bff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+}
+
+#modal-edit:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+#modal-edit:active {
+  background: #0056b3;
+  border-color: #0056b3;
+  color: #fff;
+}
