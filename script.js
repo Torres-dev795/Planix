@@ -20,6 +20,7 @@ const tabs = document.querySelectorAll('.tab');
 const taskCard = document.querySelector('.task-card');
 
 const searchInput = document.getElementById('search-input');
+const filterSelect = document.getElementById('filter-select');
 
 const tagColors = {
     'High':   { background: 'rgba(247, 189, 189, 0.633)', color: '#f33f3f' },
@@ -135,8 +136,9 @@ function closeCreateModal() {
 }
 
 function deleteTask(id) {
-    state.task = state.task.filter(task => task.id !== id);
+    if(!confirm('Are you sure you want to delete this task?')) return;
 
+    state.task = state.task.filter(task => task.id !== id);
     saveState();
     renderTasks();
     closeModal();
@@ -209,6 +211,18 @@ function submitCreateTask(e) {
     closeCreateModal();
 }
 
+function filterByPriority(priority) {
+    document.querySelectorAll('.task-card').forEach(card => {
+        const cardPriority = card.querySelector('.task-tag').textContent;
+        if (priority === 'Non' || cardPriority === priority) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+filterSelect.addEventListener('change', (e) => filterByPriority(e.target.value));
 searchInput.addEventListener('input', (e) => filterTasks(e.target.value));
 btnCreate.addEventListener('click', () => openCreateModal());
 modalClose.addEventListener('click',closeModal);
