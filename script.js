@@ -142,6 +142,7 @@ function deleteTask(id) {
     saveState();
     renderTasks();
     closeModal();
+    showToast('Task deleted successfully!');
 }
 
 function saveState() {
@@ -187,9 +188,7 @@ function openModalEdit(task) {
         saveState();
         renderTasks();
         closeCreateModal();
-        document.querySelector('#modal-create h2').textContent = 'New Task';
-        document.querySelector('#form-create button[type="submit"]').textContent = 'Create Task';
-        formCreate.onsubmit = submitCreateTask;
+        showToast('Task updated successfully!');
     }
 }
 
@@ -209,6 +208,7 @@ function submitCreateTask(e) {
     saveState();
     renderTasks();
     closeCreateModal();
+    showToast('Task created successfully!');
 }
 
 function filterByPriority(priority) {
@@ -221,6 +221,17 @@ function filterByPriority(priority) {
         }
     });
 }
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Event Listeners
+
 
 filterSelect.addEventListener('change', (e) => filterByPriority(e.target.value));
 searchInput.addEventListener('input', (e) => filterTasks(e.target.value));
