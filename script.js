@@ -65,6 +65,7 @@ function renderTasks() {
                 renderTasks();
             }
             });
+        
     });
 
     state.task.forEach(task => {
@@ -79,6 +80,10 @@ function renderTasks() {
     });
     columna.appendChild(taskCard);
   });
+    document.querySelectorAll('.column').forEach(columna => {
+        const count = columna.querySelectorAll('.task-card').length;
+        columna.querySelector('h3').textContent = `${columna.id} (${count})`;
+    });
 }
 
 function createTask(task) {
